@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.rictor.demo</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package com.rictor.demo;
+
+import org.java_websocket.WebSocket;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
+// import java.util.Timer;
+// import java.util.TimerTask;
+
+public class Game {
+    public short numPlayers;
+    public short round;
+<span class="pc" id="L18">    public short NUM_ROUNDS = 3;</span>
+<span class="pc" id="L19">    public int phase = -1;</span>
+<span class="pc" id="L20">    public int time = 60;</span>
+    public int indexOfIt;
+<span class="pc" id="L22">    public boolean itWins = true;</span>
+    public int[] scores;
+    public ArrayList&lt;Player&gt; players;
+    public ArrayList&lt;String&gt; playerNames;
+
+    public boolean[] bonus;
+    public boolean[] submitted;
+    public String[][] allQuotes;
+    public boolean[] usedQuotes;
+    public String[][] quoteChoices;
+    public String[] quote;
+    public String[][] submittedQuotes;
+    
+    public boolean end;
+
+
+
+
+//game phases: pre-game = -1, choosing quote = 0, writing = 1, voting = 2
+
+    WebsocketServer wss;
+
+<span class="fc" id="L44">    Game(){ //test constructor</span>
+<span class="fc" id="L45">        this.numPlayers=0;</span>
+<span class="fc" id="L46">        this.players = new ArrayList&lt;Player&gt;();</span>
+<span class="fc" id="L47">        this.playerNames = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L48">    }</span>
+<span class="nc" id="L49">    Game(WebsocketServer wss) {</span>
+<span class="nc" id="L50">        readFile(&quot;sourceQuotes&quot;);</span>
+<span class="nc" id="L51">        this.numPlayers=0;</span>
+<span class="nc" id="L52">        this.players = new ArrayList&lt;Player&gt;();</span>
+<span class="nc" id="L53">        this.playerNames = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L54">        this.wss = wss;</span>
+<span class="nc" id="L55">        System.out.println(&quot;New Game on &quot; + wss.getPort() + &quot;!&quot;);</span>
+<span class="nc" id="L56">    }</span>
+    public void broadcast(){
+<span class="nc" id="L58">        wss.broadcast();</span>
+<span class="nc" id="L59">    }</span>
+    public void readFile(String filename) {        
+        try {
+<span class="fc" id="L62">            BufferedReader bufferedReader = new BufferedReader(</span>
+<span class="fc" id="L63">                    new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filename),</span>
+<span class="fc" id="L64">                            Charset.defaultCharset()));</span>
+<span class="fc" id="L65">            int numQuotes = Integer.parseInt(bufferedReader.readLine());</span>
+<span class="fc" id="L66">            allQuotes = new String[numQuotes][3];</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            for (int i = 0; i &lt; numQuotes; i++) {</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">                for(int j = 0; j&lt;3; j++) {</span>
+<span class="fc" id="L69">                    allQuotes[i][j] = bufferedReader.readLine();</span>
+                }
+            }
+<span class="fc" id="L72">            usedQuotes = new boolean[allQuotes.length];</span>
+<span class="nc" id="L73">        } catch (Exception e) {</span>
+<span class="nc" id="L74">            System.out.println(e.getStackTrace());</span>
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">        System.out.println(&quot;Read in quotes:&quot;);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for(String[] q : allQuotes) {</span>
+<span class="fc" id="L78">            System.out.println(Arrays.toString(q));</span>
+        }
+<span class="fc" id="L80">    }</span>
+    
+    public boolean allSubmitted(){
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for(int i = 0; i&lt;this.submitted.length; i++) {</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            if(i==this.indexOfIt) continue;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            if(!this.submitted[i]) return false;</span>
+        }
+<span class="nc" id="L87">        return true;</span>
+    }
+    public void addPlayer(String name, WebSocket conn){
+<span class="nc" id="L90">		Player player = new Player(numPlayers, name, conn);</span>
+<span class="nc" id="L91">		this.numPlayers++;</span>
+<span class="nc" id="L92">        players.add(player);</span>
+<span class="nc" id="L93">        playerNames.add(name);</span>
+<span class="nc" id="L94">        System.out.println(&quot;Added &quot; + name + &quot; to game!&quot;);</span>
+<span class="nc" id="L95">        System.out.println(numPlayers + &quot; current players:\n&quot; + playerNames);</span>
+<span class="nc" id="L96">    }</span>
+    
+	public void removePlayer(int index){
+<span class="nc" id="L99">        players.remove(index);</span>
+<span class="nc" id="L100">        playerNames.remove(index);</span>
+<span class="nc" id="L101">        this.numPlayers--;</span>
+<span class="nc" id="L102">    }</span>
+    
+    public void startGame(short rounds) {
+
+<span class="nc" id="L106">        this.scores = new int[numPlayers];</span>
+<span class="nc" id="L107">        this.submitted = new boolean[numPlayers];</span>
+<span class="nc" id="L108">        this.indexOfIt = 0;</span>
+<span class="nc" id="L109">        this.round = 1;</span>
+<span class="nc" id="L110">        choice();</span>
+<span class="nc" id="L111">    }</span>
+
+    public void choice(){
+<span class="nc" id="L114">        wss.timer();</span>
+<span class="nc" id="L115">        this.phase = 0;</span>
+<span class="nc" id="L116">        Random r = new Random();</span>
+<span class="nc" id="L117">        quoteChoices = new String[3][3];</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        for(int i = 0; i&lt;quoteChoices.length; i++) {</span>
+<span class="nc" id="L119">            int index = r.nextInt(allQuotes.length);</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">            while(usedQuotes[index]) {</span>
+<span class="nc" id="L121">                System.out.println(&quot;Can't use \&quot;&quot; + allQuotes[index][1]+&quot; &quot;+ allQuotes[index][2] + &quot;\&quot;&quot;);</span>
+<span class="nc" id="L122">                index = r.nextInt(allQuotes.length);</span>
+            }
+<span class="nc" id="L124">            quoteChoices[i] = allQuotes[index];</span>
+<span class="nc" id="L125">            usedQuotes[index] = true;</span>
+        }
+<span class="nc" id="L127">        submittedQuotes = new String[this.numPlayers][4];</span>
+<span class="nc" id="L128">        bonus = new boolean[this.numPlayers];</span>
+<span class="nc" id="L129">    }</span>
+    public void setQuote(String[] quote, int index){
+<span class="nc" id="L131">        System.out.println(&quot;Setting quote for player &quot; + index + &quot; to \&quot;&quot; + quote[1] + quote[2] + &quot;\&quot;&quot;);</span>
+<span class="nc" id="L132">        this.submittedQuotes[index] = quote;</span>
+<span class="nc" id="L133">        this.submitted[index] = true;</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if(this.phase==0) {</span>
+<span class="nc" id="L135">            this.quote = quote;</span>
+<span class="nc" id="L136">            this.phase = 1;</span>
+<span class="nc" id="L137">            wss.timer();</span>
+        }
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (this.allSubmitted()) {</span>
+<span class="nc" id="L140">            shuffleArray(this.submittedQuotes);</span>
+<span class="nc" id="L141">            this.submitted = new boolean[this.numPlayers];</span>
+<span class="nc" id="L142">            this.phase = 2;</span>
+<span class="nc" id="L143">            wss.timer();</span>
+        }
+<span class="nc" id="L145">        wss.broadcast();</span>
+<span class="nc" id="L146">    }</span>
+    public void awardBonus(int index) {
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        this.bonus[index]=!this.bonus[index];</span>
+<span class="nc" id="L149">    }</span>
+    public void vote(int voteIndex, int index) {
+<span class="nc" id="L151">        submitted[index]=true;</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        if(voteIndex==indexOfIt) {</span>
+<span class="nc" id="L153">            scores[index]+=2;</span>
+<span class="nc" id="L154">            itWins = false;</span>
+        } 
+<span class="nc" id="L156">        else scores[voteIndex]+=2;</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if(this.allSubmitted()){</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">            if(itWins) scores[indexOfIt]+=3;</span>
+<span class="nc bnc" id="L159" title="All 4 branches missed.">            for(int i = 0; i&lt;numPlayers; i++) if(this.bonus[i]) this.scores[i]++;</span>
+<span class="nc" id="L160">            nextRound();</span>
+        }
+<span class="nc" id="L162">    }</span>
+    public void nextRound(){
+<span class="nc" id="L164">        this.submitted = new boolean[this.numPlayers];</span>
+<span class="nc" id="L165">        this.itWins = true;</span>
+<span class="nc" id="L166">        this.indexOfIt++;</span>
+<span class="nc" id="L167">        this.indexOfIt = this.indexOfIt % this.numPlayers;</span>
+        
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        if(this.indexOfIt==0) this.round++;</span>
+        
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if(this.round&gt;this.NUM_ROUNDS) endGame();</span>
+<span class="nc" id="L172">        else choice();</span>
+<span class="nc" id="L173">    }</span>
+
+    public void endGame(){      
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        for(int i = 0; i&lt;this.numPlayers; i++){</span>
+<span class="nc" id="L177">            this.players.remove(0);</span>
+<span class="nc" id="L178">            this.playerNames.remove(0);</span>
+        }
+<span class="nc" id="L180">        this.phase = 3;</span>
+<span class="nc" id="L181">        this.round = 0;</span>
+<span class="nc" id="L182">    }  </span>
+
+    public void reset(){
+<span class="nc" id="L185">        this.numPlayers = 0;</span>
+<span class="nc" id="L186">        this.scores = null;</span>
+<span class="nc" id="L187">        this.itWins = true;</span>
+<span class="nc" id="L188">        this.usedQuotes = new boolean[allQuotes.length];</span>
+<span class="nc" id="L189">        this.submitted = null;</span>
+<span class="nc" id="L190">        this.bonus = null;</span>
+<span class="nc" id="L191">        this.phase = -1;</span>
+<span class="nc" id="L192">        wss.broadcast(true);</span>
+<span class="nc" id="L193">    }</span>
+    private static void shuffleArray(String[][] array){
+        int index;
+        String[] temp;
+<span class="nc" id="L197">        Random random = new Random();</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">        for (int i = array.length - 1; i &gt; 0; i--)</span>
+        {
+<span class="nc" id="L200">            index = random.nextInt(i + 1);</span>
+<span class="nc" id="L201">            temp = array[index];</span>
+<span class="nc" id="L202">            array[index] = array[i];</span>
+<span class="nc" id="L203">            array[i] = temp;</span>
+        }
+<span class="nc" id="L205">    } </span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

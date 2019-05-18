@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+demo,com.rictor.demo,Broadcast,57,0,0,0,16,0,1,0,1,0
+demo,com.rictor.demo,Session,19,0,0,0,6,0,2,0,2,0
+demo,com.rictor.demo,Game,537,104,34,6,103,23,31,5,14,2
+demo,com.rictor.demo,App,10,0,0,0,4,0,2,0,2,0
+demo,com.rictor.demo,Player,32,0,0,0,8,0,2,0,2,0
+demo,com.rictor.demo,Request,3,0,0,0,1,0,1,0,1,0
+demo,com.rictor.demo,WebsocketServer.new TimerTask() {...},29,0,2,0,7,0,3,0,2,0
+demo,com.rictor.demo,WebsocketServer,355,0,29,0,73,0,31,0,12,0

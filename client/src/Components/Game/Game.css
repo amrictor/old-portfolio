@@ -1,0 +1,153 @@
+.game {
+    background-color: #b70082;
+    min-height: 100vh;
+    /* flex: 1; */
+}
+.title {
+    color: white;
+    background-color: #b70082;
+    font-family: "Times New Roman";
+    font-size: 40px;
+    font-weight: 200;
+    text-align: center;
+    /* text-shadow: 5px 5px 15px rgba(0, 0, 0, .5); */
+}
+.right {
+    float: right;
+    font-size:20px;
+    text-align:center;
+    margin-right: 25px;
+}
+.number {
+    font-size:40px;
+    margin-bottom: none;
+}
+.icon {
+    font-size: 40px;
+    margin-bottom: 7px;
+    color:#0accab;
+}
+.username {
+    color: white;
+    background-color: #590440;
+    text-align: center;
+    box-shadow: 5px 5px 50px rgba(0, 0, 0, .4);
+}
+
+
+.full {
+    width: 100%;
+}
+.timer {
+    color: #0accab;
+    font-family: "Times New Roman";
+    font-size: 40px;
+    float: right;
+    margin-right: 10px;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+
+}
+.star {
+    color: #0accab;
+    font-family: "Times New Roman";
+    font-size: 30px;
+    float: right;
+    margin-right: 10px;
+}
+.curved {
+    border-radius: 40px;
+}
+form {
+    margin: 0 auto;
+    width: 60%;
+}
+.text {
+    color: white;
+}
+.btn-secondary {
+    background-color:#0accab;
+    color: #b70082;
+    font-weight: 500;
+    border-width: 0px;
+}
+.input-group {
+    border-radius: 40px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .5);
+}
+.shadow {
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, .5);
+}
+#username {
+    border-radius: 40px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .5);
+    display: block;
+    overflow: hidden;
+    /* padding-right:10px; */
+    width:100%;
+}
+.join {
+    border-radius: 40px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .5);
+    float: right;
+}
+
+.btn-secondary:enabled:hover {
+    background-color:white;
+    color: #b70082;
+    font-weight: 500;
+    border-width: 0px;
+}
+.btn-secondary:disabled {
+    background-color:#0accab;
+    color: #b70082;
+    font-weight: 500;
+    border-width: 0px;
+}
+.btn-block {
+    border-radius: 40px;
+    background-color:white;
+    color: #b70082;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, .5);
+    font-weight: 500;
+    border-width: 0px;
+}
+.btn-block:enabled:hover {
+    background-color:#0accab;
+    color: #b70082;
+    font-weight: 500;
+    border-width: 0px;
+}
+.btn-block:enabled:hover > .star{
+    color:white;
+}
+
+/* .experience {
+    background-color: #E8ECEF;
+}
+.experience header {
+    color: white;
+    font-size: 30px;
+}
+#image:hover {
+    transition: .5s ease;
+    opacity: .3;
+}
+#image{
+    transition: .5s ease;
+    opacity: 1;
+}
+.heading{
+    text-align:center;
+    font-size: 25px;
+}
+.languages{
+    font-size: 35px;
+    text-align: center;
+}
+.options{ 
+    font-size: 12px;
+    text-align: right;
+}
+p {
+    font-size: 16px;
+} */

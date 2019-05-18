@@ -1,0 +1,8 @@
+com\rictor\demo\Broadcast.class
+com\rictor\demo\Game.class
+com\rictor\demo\Request.class
+com\rictor\demo\Player.class
+com\rictor\demo\App.class
+com\rictor\demo\Session.class
+com\rictor\demo\WebsocketServer.class
+com\rictor\demo\WebsocketServer$1.class

@@ -1,0 +1,30 @@
+.footer {
+  text-align: center;
+  color: grey;
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+.App {
+  background-color:  #282c34;
+  min-height: 100vh;
+}
+.App-header {
+  background-color: #282c34;
+}
+Nav:active {
+  color: red;
+}
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
