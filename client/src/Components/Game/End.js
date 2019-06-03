@@ -62,7 +62,6 @@ class End extends Component {
 
   render() {
     let max= this.checkWinner()
-    console.log(max)
     return ( 
       <Container fluid >
         <div className="text">

@@ -8,3 +8,17 @@
 .card-body {
     margin-top: 0px;
 }
+.card.left{
+    border-radius: 0px 0px 0px 75px;
+}
+
+.card.right{
+    border-radius: 0px 0px 75px 0px;
+}
+.card {
+    border-radius: 0px 0px 0px 0px;
+}
+.d-block {
+    margin:0px;
+    padding:0px;
+}

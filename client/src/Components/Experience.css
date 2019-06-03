@@ -1,10 +1,13 @@
-.experience {
-    background-color: #E8ECEF;
+
+
+.bodyBackground {
+    /* background-color: #E9ECEF; */
+    /* background-color: #fbf7ff; */
 }
-.experience header {
+/* .experience header {
     color: white;
     font-size: 30px;
-}
+} */
 #image:hover {
     transition: .5s ease;
     opacity: .3;

@@ -13,31 +13,30 @@ import Home from './Components/Home.js'
 import Experience from './Components/Experience.js'
 import Projects from './Components/Projects.js'
 import Game from './Components/Game/Game.js'
+import Trip from './Components/Trip-Planner/components/App.js'
 
 import resume from './resources/Resume.pdf'
 
 
 class App extends Component {
   navBar(){
-    if(window.location.pathname==="/game") {
+    if(window.location.pathname==="/game" || window.location.pathname==="/trip-planner") {
       return("");
     }
     return(
-      <header className="App-header">
+      <React.Fragment>
+      <header className="backgroundColor">
         <Row>
           <Col xs='8'>
             <Nav>
               <NavItem>
-                <NavLink href="/">Abigail Rictor</NavLink>
+                <NavLink href="/">ABIGAIL RICTOR</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/experience">Experience</NavLink>
+                <NavLink href="/experience">EXPERIENCE</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/projects">Projects</NavLink>
-              </NavItem>
-              <NavItem>
-              <NavLink href="/game">Game</NavLink>
+                <NavLink href="/projects">PROJECTS</NavLink>
               </NavItem>
               </Nav>
           </Col>
@@ -55,19 +54,22 @@ class App extends Component {
             </Nav>
           </Col>
         </Row>
-      </header>      
+      </header>
+      <div className='accentBackground'>
+      <Container className='pad'>
+      </Container>
+    </div>
+    </React.Fragment> 
     )
   }
   footer(){
-    if(window.location.pathname==="/game") {
+    if(window.location.pathname==="/game" || window.location.pathname==="/trip-planner") {
       return("");
     }
     return(
-      <div className='footer'>
+      <div className='backgroundColor'>
         <Container className='options'>
-          <br/>
-          <a href={resume} target="_blank" rel="noopener noreferrer">View PDF Resume</a>
-          <br/>
+          <br/><br/>
         </Container>
       </div>
     )
@@ -84,6 +86,7 @@ class App extends Component {
               <Route path="/experience" component={Experience} />
               <Route path="/projects" component={Projects} />
               <Route path="/game" component={Game} />
+              <Route path="/trip-planner" component={Trip} />
             </div>
           </Router>
           {this.footer()}

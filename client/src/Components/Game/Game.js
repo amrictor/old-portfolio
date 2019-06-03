@@ -8,6 +8,12 @@ import Writing from './Writing.js'
 import Voting from './Voting.js'
 import End from './End.js'
 
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Slide from '@material-ui/lab/Slider';
+
+
+
 import { FaPenFancy as Pen } from 'react-icons/fa'
 
 
@@ -23,10 +29,15 @@ class Game extends Component {
         scores: [],
         quote: [],
         quotes: [],
+        votes: [],
+        results: false,
         time: null,
         submitted: [],
         bonus: [],
         indexOfIt: -1
+      },
+      results: {
+        
       },
       player: {
         quote: [],
@@ -40,6 +51,7 @@ class Game extends Component {
     this.vote = this.vote.bind(this)
     this.end = this.end.bind(this)
     this.reset = this.reset.bind(this)
+    this.next = this.next.bind(this)
     this.setCookie = this.setCookie.bind(this);
     this.checkCookie = this.checkCookie.bind(this);
     this.updateGameBasedOnResponse = this.updateGameBasedOnResponse.bind(this);
@@ -50,7 +62,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    this.connection = new WebSocket('ws://127.0.0.1:4444');
+    this.connection = new WebSocket('ws://73.95.148.192:4444');
     this.connection.onopen = function () {
       console.log('Connected!');
     };
@@ -58,12 +70,14 @@ class Game extends Component {
     // Log errors
     this.connection.onerror = function (error) {
       console.log('WebSocket Error ' + error);
+      alert("Cannot reach server!")
     };
 
     // Log messages from the server
     this.connection.onmessage = function (e) {
       // console.log('Server: ' + e.data);
       let broadcast = JSON.parse(e.data);
+      if(!broadcast['players'].includes(this.state.player.username)) this.state.inGame = false;
       let keys = Object.keys(broadcast);
       if (broadcast['end']) this.resetState();
       else {
@@ -72,6 +86,7 @@ class Game extends Component {
           this.updateGameBasedOnResponse(keys[i], broadcast[keys[i]])
         }
       }
+      this.render();
     }.bind(this);
 
     this.connection.onclose = function (e) {
@@ -94,7 +109,6 @@ class Game extends Component {
     state[item][key] = value;
     this.setState(state);
     this.updateIndex();
-    // console.log(this.state)
   }
 
   updateIndex(){
@@ -179,7 +193,6 @@ class Game extends Component {
     this.connection.send(JSON.stringify(request));
   }
   vote(index, bonusPoints=false){
-    console.log("voting index " + index)
     let request = {
       'type': 'request',
       'action': bonusPoints ? 'bonus' : 'vote',
@@ -194,6 +207,15 @@ class Game extends Component {
     let request = {
       'type': 'request',
       'action': 'end',
+      'name': this.state.player.username,
+      'index': this.state.player.index
+    };
+    this.connection.send(JSON.stringify(request));
+  }
+  next(){
+    let request = {
+      'type': 'request',
+      'action': 'next',
       'name': this.state.player.username,
       'index': this.state.player.index
     };
@@ -227,6 +249,9 @@ class Game extends Component {
   
   render() {
     const page = 
+      this.state.inGame && !this.state.game.players.includes(this.state.player.username) ?
+      <div>Hi</div>
+      :   
       this.state.game.phase === -1 ? 
         <Login  
           updateGameBasedOnResponse={this.updateGameBasedOnResponse}
@@ -237,7 +262,7 @@ class Game extends Component {
           setCookie={this.setCookie}
           connection={this.connection}
         /> :
-        this.state.game.phase === 0 ? 
+        this.state.game.phase === 0 && this.state.inGame ? 
         <Choice
           choose={this.choose}
           updateGameBasedOnResponse={this.updateGameBasedOnResponse}
@@ -246,7 +271,7 @@ class Game extends Component {
           quoteChoices={this.state.quoteChoices}
           connection={this.connection}
         /> :
-        this.state.game.phase === 1 ? 
+        this.state.game.phase === 1 && this.state.inGame ? 
         <Writing
           updateGameBasedOnResponse={this.updateGameBasedOnResponse}
           player={this.state.player}
@@ -255,21 +280,40 @@ class Game extends Component {
           game={this.state.game}
           connection={this.connection}
         /> :
-        this.state.game.phase === 2 ? 
+        this.state.game.phase === 2 && this.state.inGame ? 
         <Voting
           vote={this.vote}
           updateGameBasedOnResponse={this.updateGameBasedOnResponse}
           player={this.state.player}
           game={this.state.game}
           connection={this.connection}
+          next={this.next}
         /> :
-        this.state.game.phase === 3 ? 
+        this.state.game.phase === 3 && this.state.inGame ? 
         <End
           player={this.state.player}
           game={this.state.game}
           connection={this.connection}
         />
-      : "";
+      : <div className="waiting">Please wait for the current game to finish!</div>;
+
+    const ColorLinearProgress = withStyles({
+      root: {
+        height: 8
+      },
+      colorPrimary: {
+        backgroundColor: '#232323',
+      },
+      barColorPrimary: {
+        backgroundColor: '#0accab',
+      },
+    })(LinearProgress);
+
+    let rounds = []
+
+    for(let i = 1; i<=this.state.game.rounds; i++){
+      rounds.push(<div key={"round_"+i} className={(i==this.state.game.round) ? "round current" : "round"}>{i}</div>)
+    }
 
     return (
       <div className="game">
@@ -281,8 +325,8 @@ class Game extends Component {
             <Pen className="icon"/> Wordsmyth
           </Col>
           <Col sm="3">
-            <div className="right">
-              {this.state.game.phase!==-1 && this.state.game.phase!==3 ? "ROUND " + this.state.game.round : ""}
+            <div className="round">
+              {this.state.game.phase!==-1 || this.state.game.phase!==3 ? rounds : ""}
             </div>
           </Col>
         </Row>
@@ -290,11 +334,19 @@ class Game extends Component {
         <div className="username">
           {(this.state.game.phase !==-1) ? this.state.player.username : <br/>}
         </div>
-        <div className="timer">{(this.state.game.phase !== -1  && this.state.game.phase !==3) ? this.state.game.time : ""}</div>
+        <ColorLinearProgress className="timer" variant="determinate" value={this.state.inGame && this.state.game.phase !=3 ? 100*this.state.game.time/60 : 100} barColorPrimary='#0accab'/>
         <div>      
           {page}
-          {this.displayScores()}  
-          {(this.state.game.phase !==-1) ?
+          {(this.state.game.results && this.state.player.index==0) ? 
+            <Button 
+              className="shadow"
+              style={{display:'block', marginTop: '0px', marginBottom: '20px' ,marginRight:'auto', marginLeft:'auto',borderRadiusBottom:'40px'}}
+              onClick={this.next}>
+                Next Round
+            </Button> 
+            : ""}
+          {this.state.inGame ? this.displayScores() : ""}  
+          {(this.state.game.phase !==-1 && this.state.inGame) ?
           <div>
             <br/>
             

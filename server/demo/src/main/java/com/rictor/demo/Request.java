@@ -7,5 +7,6 @@ public class Request {
     public short index;
     public short voteIndex;
     public short rounds;
+    public short time;
     public String[] quote;
 }

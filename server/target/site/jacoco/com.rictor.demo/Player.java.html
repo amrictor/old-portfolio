@@ -8,16 +8,18 @@ public class Player {
 	boolean it;
     Game game;
     WebSocket connection;
+    String address;
 
-<span class="nc" id="L12">    public Player(short index, String  name, WebSocket conn) {</span>
-<span class="nc" id="L13">        this.index = index;</span>
-<span class="nc" id="L14">        this.name = name;</span>
-<span class="nc" id="L15">        this.connection = conn;</span>
-<span class="nc" id="L16">    }</span>
+<span class="nc" id="L13">    public Player(short index, String  name, WebSocket conn) {</span>
+<span class="nc" id="L14">        this.index = index;</span>
+<span class="nc" id="L15">        this.name = name;</span>
+<span class="nc" id="L16">        this.connection = conn;</span>
+<span class="nc" id="L17">        this.address = conn.getRemoteSocketAddress().getAddress().getHostAddress();</span>
+<span class="nc" id="L18">    }</span>
 
     public void sendMessage(String message) {
-<span class="nc" id="L19">        System.out.println(&quot;Broadcasting to &quot; + this.name + &quot;:\n&quot; + message);</span>
-<span class="nc" id="L20">        this.connection.send(message);</span>
-<span class="nc" id="L21">    }</span>
+<span class="nc" id="L21">        System.out.println(&quot;Broadcasting to &quot; + this.name + &quot;:\n&quot; + message);</span>
+<span class="nc" id="L22">        this.connection.send(message);</span>
+<span class="nc" id="L23">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

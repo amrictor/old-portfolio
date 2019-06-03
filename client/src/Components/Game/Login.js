@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import { CardBody, Collapse, Form } from 'reactstrap'
 import { Button } from 'reactstrap'
-import { Container, Input, InputGroup, InputGroupAddon } from 'reactstrap'
+import { Container, Input, InputGroup, InputGroupAddon, Row} from 'reactstrap'
 
 import '../Project.css'
+import { FaSlidersH } from 'react-icons/fa';
+import { withStyles } from '@material-ui/core/styles';
+import Slider from '@material-ui/lab/Slider';
+
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
+      settings : false,
+      value: 2
     };
     this.displayPlayers = this.displayPlayers.bind(this);
     this.join = this.join.bind(this);
     this.leave = this.leave.bind(this);
     this.start = this.start.bind(this);
+    this.change = this.change.bind(this);
   }
 
   contains(a, obj) {
@@ -26,7 +33,7 @@ class Login extends Component {
     return false;
   }
   join(){
-    console.log(this.props.game.players.length)
+    this.props.updateGameBasedOnResponse('username', document.getElementById("username").value)
     if(this.props.player.username.length===0) {
       alert("Please choose a username.");
       return;
@@ -94,7 +101,24 @@ class Login extends Component {
         );
   }
 
+ 
+  change(event, value){
+    this.setState({ value })
+  }
+
   render() {
+    let ShortSlider = withStyles({
+      root: {
+        width: 300,
+      },
+      track: {
+        backgroundColor:  '#0accab'
+      },
+      thumb: {
+        backgroundColor:  '#0accab'
+      },
+    })(Slider);
+
     return (
       <Container fluid>
         <CardBody className="text">Choose a username and join the game!</CardBody>
@@ -104,7 +128,6 @@ class Login extends Component {
               id="username"
               name="username"
               placeholder= {this.props.inGame ? this.props.player.username : "Username" }
-              onChange={(e) => this.props.updateGameBasedOnResponse('username', e.target.value)}
               disabled={this.props.inGame}
           />
           <br/><br/>
@@ -115,18 +138,39 @@ class Login extends Component {
           >
             {this.props.inGame ? "Leave" : "Join"}
           </Button>
-          &nbsp;
-          <Collapse isOpen={this.props.player.index===0}>
-          <Button
-              className="join"
-              onClick={this.start}
-              disabled={this.props.game.numPlayers<2}
-            >
-              Start Game!
-          </Button>
+          
+          <Collapse isOpen={this.props.player.index===0 && this.props.inGame}>
+            
+            <Button
+                className="join"
+                onClick={() => this.setState({'settings': !this.state.settings})}
+                disabled
+              >
+                <FaSlidersH/>
+            </Button>
+            <Button
+                className="join"
+                onClick={this.start}
+                disabled={this.props.game.numPlayers<2}
+              >
+                Start Game!
+            </Button>
         </Collapse>
         </Form>    
-        
+        <Collapse isOpen={this.state.settings}>
+          <p className='slider'>{this.state.value}</p>
+          <div className="slider">
+          
+            <ShortSlider
+              min={1}
+              max={5}
+              step={1}
+              className={"slider"}
+              value={this.state.value}
+              onChange={this.change}
+            />
+          </div>
+        </Collapse>
         <CardBody>
           {this.displayPlayers()}
         </CardBody>

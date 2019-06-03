@@ -31,13 +31,14 @@ public class WebsocketServer extends WebSocketServer {
     
     public void newGame() {
         this.game = new Game(this);
-        //  creating a new instance of timer class 
      } 
 
     public void broadcast(){
         this.broadcast(false);
     }
+
     public void broadcast(boolean end){
+        if(end) System.out.print("Broadcast: END");
         Gson gson = new Gson();
         String broadcast = gson.toJson(new Broadcast(game, end));
         for (WebSocket sock : conns) {
@@ -75,6 +76,7 @@ public class WebsocketServer extends WebSocketServer {
         }
         else System.out.println("ERROR: Connection does not exist");
     }
+
     public void timeOut() {
         Random r = new Random();
         System.out.println("PHASE:" + game.phase);
@@ -97,13 +99,15 @@ public class WebsocketServer extends WebSocketServer {
                 System.out.println("case2");
                 for(int i = 0; i<game.numPlayers; i++){
                     if(!game.submitted[i]) {
-                        game.vote(r.nextInt(game.numPlayers), i);
+                        game.vote(-1, i);
                     }
                 }
                 break;
+            case 3: game.time = 60;
         }
         broadcast();
     }
+
     public void timer() {        
         game.time = 60;
         if(task!=null) task.cancel();
@@ -116,13 +120,14 @@ public class WebsocketServer extends WebSocketServer {
                 if(game.time<=0){
                     timeOut();
                     this.cancel();
+                    return;
                 }
             }
         };
         timer.scheduleAtFixedRate(
             task,
             0,      // run first occurrence immediately
-            1100);  // run every five seconds
+            1100);  // run every second
     }
 
     public void handleRequest(WebSocket conn, String request) {
@@ -134,12 +139,14 @@ public class WebsocketServer extends WebSocketServer {
         if(!r.action.equals("join")) game.players.get(r.index).connection = conn;
         
         switch(r.action) {
+            case "set": game.NUM_ROUNDS = r.rounds; game.time = r.time; break;
             case "join": game.addPlayer(r.name, conn); break;
             case "leave": game.removePlayer(r.index); break;
             case "start": game.startGame(r.rounds); break;
             case "choose": game.setQuote(r.quote, r.index); break;
             case "vote": game.vote(r.voteIndex, r.index); break;
             case "bonus": game.awardBonus(r.voteIndex); break;
+            case "next" : game.nextRound(); break;
             case "end": game.endGame(); break;
             case "reset": game.reset(); break;
         }

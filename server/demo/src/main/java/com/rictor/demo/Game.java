@@ -21,6 +21,7 @@ public class Game {
     public int indexOfIt;
     public boolean itWins = true;
     public int[] scores;
+    public int[] votes;
     public ArrayList<Player> players;
     public ArrayList<String> playerNames;
 
@@ -33,6 +34,7 @@ public class Game {
     public String[][] submittedQuotes;
     
     public boolean end;
+    public boolean results;
 
 
 
@@ -63,11 +65,12 @@ public class Game {
                     new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filename),
                             Charset.defaultCharset()));
             int numQuotes = Integer.parseInt(bufferedReader.readLine());
-            allQuotes = new String[numQuotes][3];
+            allQuotes = new String[numQuotes][4];
             for (int i = 0; i < numQuotes; i++) {
                 for(int j = 0; j<3; j++) {
                     allQuotes[i][j] = bufferedReader.readLine();
                 }
+                allQuotes[i][3]="-1";
             }
             usedQuotes = new boolean[allQuotes.length];
         } catch (Exception e) {
@@ -87,6 +90,11 @@ public class Game {
         return true;
     }
     public void addPlayer(String name, WebSocket conn){
+        if(this.playerNames.contains(name) && this.players.get(this.playerNames.indexOf(name)).address.equals(conn.getRemoteSocketAddress().getAddress().getHostAddress())) {
+            System.out.println("Welcome back...");
+            this.players.get(this.playerNames.indexOf(name)).connection = conn;
+            return;
+        }
 		Player player = new Player(numPlayers, name, conn);
 		this.numPlayers++;
         players.add(player);
@@ -114,7 +122,7 @@ public class Game {
         wss.timer();
         this.phase = 0;
         Random r = new Random();
-        quoteChoices = new String[3][3];
+        quoteChoices = new String[3][4];
         for(int i = 0; i<quoteChoices.length; i++) {
             int index = r.nextInt(allQuotes.length);
             while(usedQuotes[index]) {
@@ -128,7 +136,8 @@ public class Game {
         bonus = new boolean[this.numPlayers];
     }
     public void setQuote(String[] quote, int index){
-        System.out.println("Setting quote for player " + index + " to \"" + quote[1] + quote[2] + "\"");
+        quote[3] = "" + index;
+        System.out.println("Setting quote for player " + index + " to \"" + quote[1] + " " + quote[2] + "\"");
         this.submittedQuotes[index] = quote;
         this.submitted[index] = true;
         if(this.phase==0) {
@@ -142,25 +151,37 @@ public class Game {
             this.phase = 2;
             wss.timer();
         }
+        votes = new int[players.size()];
         wss.broadcast();
     }
     public void awardBonus(int index) {
         this.bonus[index]=!this.bonus[index];
     }
+    public void showResults() {
+        this.results = true;
+        broadcast();
+    }
+
     public void vote(int voteIndex, int index) {
         submitted[index]=true;
+        
         if(voteIndex==indexOfIt) {
             scores[index]+=2;
             itWins = false;
-        } 
+        }
+        else if(voteIndex==-1); //player failed to vote in time; 
         else scores[voteIndex]+=2;
+        if(voteIndex!=-1) votes[voteIndex]++;
         if(this.allSubmitted()){
             if(itWins) scores[indexOfIt]+=3;
-            for(int i = 0; i<numPlayers; i++) if(this.bonus[i]) this.scores[i]++;
-            nextRound();
+            for(int i = 0; i<numPlayers; i++) {
+                if(this.bonus[i]) this.scores[i]++;
+            }
+            showResults();
         }
     }
     public void nextRound(){
+        this.results = false;
         this.submitted = new boolean[this.numPlayers];
         this.itWins = true;
         this.indexOfIt++;
@@ -172,7 +193,8 @@ public class Game {
         else choice();
     }
 
-    public void endGame(){      
+    public void endGame(){
+        this.end = true;      
         this.phase = 3;
         this.round = 0;
     }  
@@ -182,6 +204,7 @@ public class Game {
             this.players.remove(0);
             this.playerNames.remove(0);
         }
+        this.end = false;
         this.numPlayers = 0;
         this.scores = null;
         this.itWins = true;
