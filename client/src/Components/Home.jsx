@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { CardBody } from 'reactstrap'
-import { Jumbotron, Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 
 import resume from '../resources/Resume.pdf'
-import headshot from '../resources/headshot.png'
+
+import apple from '../resources/bitmojis/apple.png'
+import asdf from '../resources/bitmojis/asdf.png'
+import cat from '../resources/bitmojis/cat.png'
+import ctrlz from '../resources/bitmojis/ctrlz.png'
+import math from '../resources/bitmojis/math.png'
 
 
 class Home extends Component {
+  
   render() {
+    let headshots = [apple, asdf, cat, ctrlz, math]
     return (
       <Container fluid className='page'>
         {/* 'home lead heading page'> */}
@@ -29,7 +36,7 @@ class Home extends Component {
           <Col>
             <Row className="vertical-align">
               <Col>
-                <img className="right-align clip-circle" src={headshot}/>
+                <img className="right-align clip-circle" src={headshots[Math.floor((Math.random() * headshots.length))]}/>
               </Col>
               <Col>
                 <CardBody className="left-align">

@@ -4,7 +4,7 @@ import { Card, CardBody, CardImg, CardTitle,
          Nav, NavItem, NavLink,
          UncontrolledTooltip, UncontrolledCarousel
         } from 'reactstrap'
-import {IconContext} from 'react-icons';
+import { IconContext } from 'react-icons';
 import { IoMdEye as Preview, IoLogoGithub as Github } from 'react-icons/io'
 import cpp from '../resources/C++.svg'
 

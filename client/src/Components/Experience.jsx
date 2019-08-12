@@ -6,7 +6,8 @@ import { FaMapMarkerAlt as Location, FaRegCalendarAlt as Date } from 'react-icon
 import { FaPython as Python, FaJava as Java, FaJsSquare as JS, FaHtml5 as HTML} from 'react-icons/fa'
 import { FaGitSquare as Git, FaMicrosoft as Windows, FaLinux as Linux, FaCss3Alt as CSS} from 'react-icons/fa'
 import { GoTerminal as Bash } from 'react-icons/go'
-import { CustomCpp as Cpp, CustomUnity as Unity, CustomCsharp as Csharp } from 'react-icons/custom'
+import { FaEye as Cpp, FaEye as Unity, FaEye as Csharp } from 'react-icons/fa'
+// import { CustomCpp as Cpp, CustomUnity as Unity, CustomCsharp as Csharp } from 'react-icons/custom'
 
 import './Experience.css'
 
@@ -113,7 +114,9 @@ class Experience extends Component {
               'img' : hpe,
               'start' : "May 2019",
               'end' : "Present",
-              'description' : "Develops application for the visualization and navigation of large log files across multiple systems."
+              'description' : "Saved hours of developer time during triage by creating a tool for the visualization and navigation of log files.\
+              Parsed log information from 100,000+ line log files, stored and accessed data using PostgreSQL and GraphQL.\
+              Intuitively displayed data in a locally hosted ReactJS web application; log entries follow the chronological flow of system activity and allowing users to filter for more relevant events."
             }
           )}
           {this.experienceBlock(
@@ -125,7 +128,7 @@ class Experience extends Component {
               'img' : pelco,
               'start' : "May 2018",
               'end' : "October 2018",
-              'description' : "Worked in an agile environment with a remote team to automate testing of API calls to a security video management system."
+              'description' : "Worked in an agile environment with a remote team to automate testing of API calls to a security video management system using Python and Robot Framework."
             }
           )}
           {this.experienceBlock(
@@ -149,7 +152,7 @@ class Experience extends Component {
               'img' : latlon,
               'start' : "June 2017",
               'end' : "August 2017",
-              'description' : "Constructed GPS units designed to record and report custom metrics to the client’s online interface. Soldered and programmed boards, tested and inspected units, and gained experience with quality assurance in a technical workplace."
+              'description' : "Constructed GPS units designed to record and report custom metrics to the client’s online interface. Soldered and programmed boards, tested and inspected units, and gained experience with quality assurance in the context of hardware."
             }
           )}
         

@@ -7,6 +7,7 @@ $accentColor: #ffce3d;
 ::-webkit-scrollbar {
   z-index: 1!important;
   width: 10px;
+  transition: .5s ease-in-out;
 }
 
 /* Track */
@@ -17,7 +18,6 @@ $accentColor: #ffce3d;
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #e9cf80;
-  transition: .2s ease-in-out;
   cursor:pointer;
 }
 
@@ -31,7 +31,7 @@ $accentColor: #ffce3d;
 
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
   z-index: 1!important;
   * {
     z-index: inherit!important;
@@ -75,14 +75,16 @@ body {
     .page {
       background-color: $backgroundColor;
       flex: 1 1 100%;
+      height:95vh;
+      overflow-y: auto;
       .badges {
         color:$headerColor;
         max-width:240px;
         flex-shrink:1;
         font-size:35px;
-        margin:auto;
-        display:flex;
-        flex-wrap:wrap;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-around;
       }
@@ -153,8 +155,8 @@ body {
   padding: 5%;
 }
 .clip-circle {
-  clip-path: circle(40% at center);
-  height:30%;
+  clip-path: circle(45% at center);
+  height:50%;
 }
 header a {
   color: white;
