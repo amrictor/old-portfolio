@@ -21,7 +21,7 @@ class App extends Component {
                   timeout={{enter:900, exit:0}}
                   classNames='pagefade'
                 >
-                  <Switch location={location}>
+                  <Switch location={location}> 
                     {routes}
                   </Switch>
                 </CSSTransition>
@@ -36,9 +36,15 @@ class App extends Component {
 
   render() {
     const routes = [
-        <Route exact path={'/'} key="route_home" render={() => <Application page={'home'}/>} />
+        <Route exact path={'/portfolio/#/trip-planner'} key="route_home" render={() => <Application page={'home'}/>} />
     ]
-    return ( <div class="csu"> { this.reactiveRouter(routes) } </div> )
+    console.log(routes)
+    return ( 
+    <div className="csu"> 
+      <Header/>
+        <Application page={'home'}/>
+      <Footer/>
+     </div> )
   }
 }
 

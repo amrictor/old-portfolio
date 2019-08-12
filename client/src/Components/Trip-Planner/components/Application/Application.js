@@ -217,8 +217,10 @@ class Application extends Component {
 
     render() {
         if (!this.state.config) {
+            console.log("No config")
             return <div/>
         }
+        console.log("config")
         const style ={textDecoration: 'none'};
         const aStyle ={color: '#255f35', textDecoration: 'none'};
         return (

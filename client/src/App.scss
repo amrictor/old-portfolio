@@ -1,0 +1,175 @@
+$headerColor: #038ddd;
+$dividerColor: #3db1ff;
+$backgroundColor: rgb(239, 243, 248);
+$accentColor: #ffce3d; 
+
+/* width */
+::-webkit-scrollbar {
+  z-index: 1!important;
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $headerColor;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e9cf80;
+  transition: .2s ease-in-out;
+  cursor:pointer;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:  #ffce3d;
+  cursor:pointer;
+  
+  /* background: #555;  */
+}
+
+
+body {
+  overflow-x: hidden;
+  z-index: 1!important;
+  * {
+    z-index: inherit!important;
+  }
+  .App{
+    height:100vh;
+    width:100vw;    
+    background-color:$backgroundColor;
+    display:flex;
+    flex-direction:column;
+    
+    .header {
+      // position:sticky;
+      top:0;
+      width:100%;
+      z-index: 100!important;
+      display:flex;
+      font-size:18px;
+      padding:10px;
+      border-bottom: 7px solid $dividerColor; 
+      .spacer{
+        flex-grow:1;
+      }
+      background-color: $headerColor;
+      a, svg {
+        margin:5px;
+        color: white;
+        margin-top: auto;
+        margin-bottom: auto;
+        font-family: "Arial Narrow", "Avant Garde", "Futura", "Gill Sans";
+        font-weight: 600;
+        transition: .2s ease-in-out;
+        &:hover {
+          cursor:pointer;
+          color: $accentColor;
+          text-decoration: none;
+        }
+      }
+      
+    }
+    .page {
+      background-color: $backgroundColor;
+      flex: 1 1 100%;
+      .badges {
+        color:$headerColor;
+        max-width:240px;
+        flex-shrink:1;
+        font-size:35px;
+        margin:auto;
+        display:flex;
+        flex-wrap:wrap;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      
+      // overflow:scroll;
+    }
+  }
+  .description{
+    transition: 1s ease-in-out;
+  }
+}
+// .backgroundColor {
+//   background-color: #038ddd;
+//   /* background-color: #282c34; */
+// }
+
+// .accentBackground {
+//   background-color: #3db1ff;
+// }
+// .white {
+//   color:white;
+// }
+// .black {
+//   color:black;
+// }
+// .accent {
+//   color: #ffce3d;
+// }
+// .game {
+//   overflow: hidden;
+// }
+// .icons {
+//   color: #038ddd;
+// }
+// hr {
+//   color: #ffce3d;
+// }
+// .pad {
+//   padding:5px;
+// }
+// .noMargin {
+//   padding:10px
+// }
+// .font {
+//   font-family: "Arial Narrow", "Avant Garde", "Futura", "Gill Sans";
+// }
+// .home {
+//   padding: 20px;
+// }
+.contact {
+  font-size: 20px;
+  font-weight: bold;
+}
+.left-align {
+  text-align: left !important; 
+  float: left;
+}
+.right-align {
+  text-align: right !important;
+  float: right;
+}
+// header {
+//   font-size: 20px;
+//   padding: 10px;
+//   /* vertical-align: text-bottom */
+// }
+.vertical-align {
+  padding: 5%;
+}
+.clip-circle {
+  clip-path: circle(40% at center);
+  height:30%;
+}
+header a {
+  color: white;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: "Arial Narrow", "Avant Garde", "Futura", "Gill Sans";
+  font-weight: 600
+}
+// .App {
+//   min-height: 100vh;
+//   background-color: rgb(239, 243, 248);
+// }
+
+a:hover {
+  color: #ffce3d; 
+}
+
+// body { height: 100vh; }
