@@ -5,6 +5,12 @@
   z-index: 1;
 }
 
+.pageSlider-enter-active {
+  overflow: hidden !important;
+}
+.pageSlider-exit-active {
+  overflow: hidden !important;
+}
 .pageSlider-enter > .page {
   overflow: hidden;
   z-index: 10;

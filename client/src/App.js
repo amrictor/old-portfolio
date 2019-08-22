@@ -40,6 +40,7 @@ getPage(location) {
   return pageNumber===undefined ? 0 : pageNumber;
 }
 navBar(){
+  console.log(window.location)
   // if(window.location.pathname==="/" + basename + "#/game" || window.location.pathname==="/" + basename + "#/trip-planner") {
   //   return("");
   // }
@@ -93,10 +94,6 @@ navBar(){
               </div>
               
             </CSSTransition>
-            <div
-                className="page"
-              />
-          {/* </div> */}
       </TransitionGroup>
     );
   }

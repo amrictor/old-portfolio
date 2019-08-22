@@ -30,28 +30,36 @@ $accentColor: #ffce3d;
 }
 
 
-body {
+html, body {
   overflow: hidden;
-  z-index: 1!important;
-  * {
-    z-index: inherit!important;
-  }
-  .App{
-    height:100vh;
-    width:100vw;    
+  height: 100%;
+  // display: block;
+  // z-index: 1!important;
+  // * {
+  //   z-index: inherit!important;
+  // }
+  #root, .App{
+    // position:relative;
+    height:100%;
+    // width:100vw;    
+    overflow:hidden;
     background-color:$backgroundColor;
     display:flex;
     flex-direction:column;
     
     .header {
-      // position:sticky;
-      top:0;
-      width:100%;
-      z-index: 100!important;
+      // position:relative;
+      // top:0;
+      // width:100%;
+      // z-index: 100!important;
       display:flex;
       font-size:18px;
       padding:10px;
       border-bottom: 7px solid $dividerColor; 
+      .pages{
+        display:flex;
+        flex-wrap:wrap;
+      }
       .spacer{
         flex-grow:1;
       }
@@ -63,6 +71,7 @@ body {
         margin-bottom: auto;
         font-family: "Arial Narrow", "Avant Garde", "Futura", "Gill Sans";
         font-weight: 600;
+        white-space: nowrap;
         transition: .2s ease-in-out;
         &:hover {
           cursor:pointer;
@@ -72,11 +81,54 @@ body {
       }
       
     }
+    .right, .left {
+      height:100%;
+      width:100%;
+      overflow-y:auto;
+      // overflow-x: hidden;
+    }
     .page {
+      // position:relative;
       background-color: $backgroundColor;
-      flex: 1 1 100%;
-      height:95vh;
-      overflow-y: auto;
+      display:flex;
+      height:100%;
+      margin-top:5%;
+      .summary {
+        // background:blue;
+        margin: auto!important;
+        // vertical-align: middle;
+      }
+      // height:100%;
+      // overflow-y: auto;
+      // .home {
+      //   width:700px;
+      //   margin-bottom:20px;
+
+      //   img {
+      //     clip-path: circle(50% at center);
+      //     height:180px;
+      //     margin-top:10px;
+      //     margin-right:5px;
+      //   }
+      //   margin-top:15px;
+      //   display: flex;
+      //   width:100%;
+    
+      //   .info {
+      //     .contact {
+      //       margin:auto;
+      //       text-align: center!important;
+
+      //     }
+      //     display:flex;
+      //     flex-wrap:nowrap;
+      //     img {
+      //       clip-path: circle(40% at center);
+      //       height:40%;
+      //       // flex-shrink: 1;
+      //     }
+      //   }
+      // }
       .badges {
         color:$headerColor;
         max-width:240px;
@@ -154,10 +206,7 @@ body {
 .vertical-align {
   padding: 5%;
 }
-.clip-circle {
-  clip-path: circle(45% at center);
-  height:50%;
-}
+
 header a {
   color: white;
   margin-top: auto;

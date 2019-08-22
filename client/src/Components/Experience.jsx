@@ -93,6 +93,7 @@ class Experience extends Component {
     </div>
 
     return (
+      // <div className="scrollable">
       <Container fluid className='page'>
       <Container fluid>
         <br/>
@@ -230,6 +231,7 @@ class Experience extends Component {
         </Container>
       </Container>
     </Container>
+    // </div>
     )
   }
 }

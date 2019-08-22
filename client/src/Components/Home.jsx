@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CardBody } from 'reactstrap'
 import { Container, Row, Col } from 'reactstrap'
 
+import FishTank from './FishTank.jsx'
 import resume from '../resources/Resume.pdf'
 
 import apple from '../resources/bitmojis/apple.png'
@@ -19,7 +20,20 @@ class Home extends Component {
       <Container fluid className='page'>
         {/* 'home lead heading page'> */}
         <Container>
-        <Row>
+          {/* <div className="home"> */}
+            <div className="summary">
+                <h1>Abigail Rictor</h1>
+                <p>B.S. in Computer Science, <br/>Colorado State University (December 2019)</p>
+                <p>Interested in interface design, full-stack development, and natural language 
+                  processing. I love creative problem solving that brings different disciplines together,
+                  especially when uniting technology and the liberal arts. 
+                  Always seeking opportunities to expand my horizons and learn.</p>
+                <hr/>
+            </div>
+            <FishTank/>
+            {/* </div> */}
+            
+        {/* <Row>
           <Col md = '5'>
             <CardBody className="left-align">
               <h1>Abigail Rictor</h1>
@@ -54,7 +68,7 @@ class Home extends Component {
              
             </Row>
           </Col>
-        </Row>
+        </Row> */}
         </Container>
       </Container>
     
