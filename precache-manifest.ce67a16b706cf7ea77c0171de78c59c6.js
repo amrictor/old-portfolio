@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/portfolio/static/media/poem2.ec589eaf.png"
   },
   {
-    "revision": "baa07bc93c636b2499b7",
+    "revision": "d0912c57cca504e40941",
     "url": "/portfolio/static/css/main.cdb22177.chunk.css"
   },
   {
@@ -64,8 +64,8 @@ self.__precacheManifest = [
     "url": "/portfolio/static/media/poem1.c29b24b9.png"
   },
   {
-    "revision": "baa07bc93c636b2499b7",
-    "url": "/portfolio/static/js/main.baa07bc9.chunk.js"
+    "revision": "d0912c57cca504e40941",
+    "url": "/portfolio/static/js/main.d0912c57.chunk.js"
   },
   {
     "revision": "ec04d739a459a45481473e666dd235ae",
@@ -128,7 +128,7 @@ self.__precacheManifest = [
     "url": "/portfolio/static/css/1.cfddbd72.chunk.css"
   },
   {
-    "revision": "a2f5ec07c8b064c9f4e8c197256bcddf",
+    "revision": "77af854e5e921252b001c069d0c01880",
     "url": "/portfolio/index.html"
   }
 ];
