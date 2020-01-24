@@ -4,16 +4,16 @@ self.__precacheManifest = [
     "url": "/static/media/eyh.78a5630f.png"
   },
   {
-    "revision": "2a7baafcb1386dc66882",
-    "url": "/static/css/main.b1f8213d.chunk.css"
+    "revision": "385b0f1d971f41ae8200",
+    "url": "/static/css/main.2b4095c2.chunk.css"
   },
   {
     "revision": "aa01a929ba2b354fb6caf7f24276585d",
     "url": "/static/media/lyrics.aa01a929.gif"
   },
   {
-    "revision": "2afd9ca2000f8a824fbd",
-    "url": "/static/js/1.2afd9ca2.chunk.js"
+    "revision": "3a6314ca3709cbd81e80",
+    "url": "/static/js/1.3a6314ca.chunk.js"
   },
   {
     "revision": "229c360febb4351a89df",
@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/static/media/acmw.7e310f29.png"
   },
   {
-    "revision": "2a7baafcb1386dc66882",
-    "url": "/static/js/main.2a7baafc.chunk.js"
+    "revision": "385b0f1d971f41ae8200",
+    "url": "/static/js/main.385b0f1d.chunk.js"
   },
   {
     "revision": "223ad4535a2bdaf95c380d7b07fb0ba0",
@@ -100,11 +100,11 @@ self.__precacheManifest = [
     "url": "/static/media/congogameplay.5acd7a48.gif"
   },
   {
-    "revision": "2afd9ca2000f8a824fbd",
+    "revision": "3a6314ca3709cbd81e80",
     "url": "/static/css/1.a99ac7b2.chunk.css"
   },
   {
-    "revision": "2a67f8e5fb3268ea8718102f49c54683",
+    "revision": "4c82aae9e0da4cf11d6cc4c5ed9c793e",
     "url": "/index.html"
   }
 ];

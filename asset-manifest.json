@@ -1,10 +1,10 @@
 {
-  "main.css": "/static/css/main.b1f8213d.chunk.css",
-  "main.js": "/static/js/main.2a7baafc.chunk.js",
-  "main.js.map": "/static/js/main.2a7baafc.chunk.js.map",
+  "main.css": "/static/css/main.2b4095c2.chunk.css",
+  "main.js": "/static/js/main.385b0f1d.chunk.js",
+  "main.js.map": "/static/js/main.385b0f1d.chunk.js.map",
   "static/css/1.a99ac7b2.chunk.css": "/static/css/1.a99ac7b2.chunk.css",
-  "static/js/1.2afd9ca2.chunk.js": "/static/js/1.2afd9ca2.chunk.js",
-  "static/js/1.2afd9ca2.chunk.js.map": "/static/js/1.2afd9ca2.chunk.js.map",
+  "static/js/1.3a6314ca.chunk.js": "/static/js/1.3a6314ca.chunk.js",
+  "static/js/1.3a6314ca.chunk.js.map": "/static/js/1.3a6314ca.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/game.gif": "/static/media/game.89794f9a.gif",
@@ -28,9 +28,9 @@
   "static/media/trip_planner.gif": "/static/media/trip_planner.0b25f61e.gif",
   "static/media/congogameplay.gif": "/static/media/congogameplay.5acd7a48.gif",
   "static/media/lyrics.gif": "/static/media/lyrics.aa01a929.gif",
-  "static/css/main.b1f8213d.chunk.css.map": "/static/css/main.b1f8213d.chunk.css.map",
+  "static/css/main.2b4095c2.chunk.css.map": "/static/css/main.2b4095c2.chunk.css.map",
   "static/css/1.a99ac7b2.chunk.css.map": "/static/css/1.a99ac7b2.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.559e93636a92d96cb3b88c6e89665e37.js": "/precache-manifest.559e93636a92d96cb3b88c6e89665e37.js",
+  "precache-manifest.1d2717e7163f63ebe9388ec6d3382f22.js": "/precache-manifest.1d2717e7163f63ebe9388ec6d3382f22.js",
   "service-worker.js": "/service-worker.js"
 }
