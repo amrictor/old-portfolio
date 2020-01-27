@@ -5,11 +5,14 @@ import { FaMapMarkerAlt as Location, FaRegCalendarAlt as Date, FaChevronCircleRi
 import { FaPython as Python, FaJava as Java, FaJsSquare as JS, FaHtml5 as HTML} from 'react-icons/fa'
 import { FaGitSquare as Git, FaMicrosoft as Windows, FaLinux as Linux, FaCss3Alt as CSS} from 'react-icons/fa'
 import { GoTerminal as Bash } from 'react-icons/go'
-import { CustomCpp as Cpp, CustomUnity as Unity, CustomCsharp as Csharp } from 'react-icons/custom'
+
+import { Cpp,Unity, Csharp } from '../resources/code_icons'
+
+// import { CustomCpp as Cpp, CustomUnity as Unity, CustomCsharp as Csharp } from 'react-icons/custom'
 
 import resume from '../resources/Resume.pdf'
 
-import { jobs, extra } from "../resources/experience"
+import { jobs, extra } from "../resources/info/experience"
 import './styles/Experience.scss'
 
 

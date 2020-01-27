@@ -7,7 +7,7 @@ import { IoLogoGithub as Github } from 'react-icons/io'
 import { FaArchive, FaLink as Preview } from 'react-icons/fa';
 
 import resume from '../resources/Resume.pdf'
-import {web, other, nontech} from '../resources/projects.js'
+import {web, other} from '../resources/info/projects.js'
 import './styles/Project.scss'
 
 class Projects extends Component {
