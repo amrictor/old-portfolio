@@ -1,0 +1,122 @@
+$headerColor: #038ddd;
+$dividerColor: white;//#3db1ff;
+$backgroundColor: white;
+$darkBackgroundColor: rgba(239, 243, 248, 0.2);
+$accentColor: #ffce3d; 
+
+.sectionHeader{
+    cursor: pointer;
+    background: $headerColor;
+    color: white;
+    max-width: 1000px;
+    margin:10px auto;
+    padding:10px;
+    font-size:22px;
+    font-weight:600;
+    a {
+        color: white;
+    }
+    .show {
+      transform: translateY(-2px);
+      margin:auto;
+      color:white;
+      font-size:22px;
+      margin: 5px 10px;
+      transition: .3s ease-in-out;
+      &.open {
+        transform: 
+          translateY(-2px)
+          rotate(90deg);
+      }
+    }
+  }
+
+  .hidden {
+    max-height:0px;
+    overflow: hidden;
+    transition: .5s ease-in-out;
+    &.open {
+      max-height: 2000px;
+      padding-bottom: 5px;
+    }
+  }
+
+
+  .badges {
+    border-radius: 10px;
+    box-shadow: 4px 4px lighten($headerColor, 40%);
+    background: $backgroundColor;
+    max-width:1000px;
+    // margin:auto;
+    color: black; //how to cut out to div beneath
+    font-size:35px;
+    padding-top:20px;
+    margin:10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    .badge {
+      display:flex;
+      flex-direction:column;
+      align-items: center;
+      overflow:visible;
+      font-size:30px;
+      margin:auto;
+      transition: .5s ease-in-out;
+      .label {
+        transition: .5s ease-in-out;
+        font-size:14px;
+        font-weight:300;
+        padding-top:2px;
+        opacity:0;
+      }
+      &:hover {
+        transform-origin: 50% 50%;
+        transform: translate(0, -10px) scale(1.1, 1.1);
+        .label {
+            font-size:14px;
+            font-weight:300;
+            padding-top:-2;
+            opacity:1;
+        }
+      }
+    }
+   
+  }
+
+.experience_block {
+    .lead {
+        font-size: 18px;
+    }
+    p {
+        margin: 5px 0px;
+    }
+    #image:hover {
+        opacity: .3;
+    }
+    #image{
+        transition: .5s ease;
+        opacity: 1;
+    }
+    svg {
+        margin-bottom: 4px;    
+    }
+    background: $backgroundColor;
+    border-radius: 10px;
+    box-shadow: 4px 4px lighten($headerColor, 40%);
+    max-width:1000px;
+    width:100%;
+    margin:auto;
+    padding:10px;
+    margin-top: 10px;
+    display:flex;
+    flex-direction: column;
+    font-size: 14px;
+    .job_details{
+      display:flex;
+      flex-direction: row;
+      .spacer {
+        flex-grow: 1;
+      }
+    }
+  }
